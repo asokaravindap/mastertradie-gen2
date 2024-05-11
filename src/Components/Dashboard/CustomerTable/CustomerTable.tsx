@@ -1,9 +1,9 @@
-import { DataTable } from 'primereact/datatable';
-import { Column } from 'primereact/column';
-import { CreateCustomerInput, Customer } from '../../../API';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { DataTable } from "primereact/datatable";
+import { Column } from "primereact/column";
 
 type CustomerTableProps = {
-  customers: Customer[] | CreateCustomerInput[];
+  customers: any[];
 };
 
 const CustomerTable: React.FC<CustomerTableProps> = ({ customers }) => {

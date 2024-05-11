@@ -1,8 +1,7 @@
-import { Menu } from 'primereact/menu';
-import { PrimeIcons } from 'primereact/api';
-import { Badge } from 'primereact/badge';
-import { Tag } from 'primereact/tag';
-import { Button } from 'primereact/button';
+/* eslint-disable @typescript-eslint/no-explicit-any */
+import { Menu } from "primereact/menu";
+import { PrimeIcons } from "primereact/api";
+import { Badge } from "primereact/badge";
 
 type CustomerTableProps = {
   signOut: () => void;
@@ -13,17 +12,20 @@ const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
     <div
       className="p-menuitem-content"
       style={{
-        display: 'flex',
-        justifyContent: item.isSpecial ? 'center' : 'left'
+        display: "flex",
+        justifyContent: item.isSpecial ? "center" : "left",
       }}
     >
       <a
         className="flex align-items-center p-menuitem-link"
         onClick={item.command}
-        style={{ color: 'var(--text-color)' }}
+        style={{ color: "var(--text-color)" }}
       >
         <span className={item.icon} />
-        <span className="mx-2" style={{ fontWeight: item.isSpecial ? 'bold' : 'normal' }}>
+        <span
+          className="mx-2"
+          style={{ fontWeight: item.isSpecial ? "bold" : "normal" }}
+        >
           {item.label}
         </span>
         {item.badge && <Badge className="ml-auto" value={item.badge} />}
@@ -31,128 +33,134 @@ const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
     </div>
   );
 
-  let items = [
+  const items = [
     {
-      label: 'Dashboard',
+      label: "Dashboard",
       icon: PrimeIcons.TH_LARGE,
       command: () => {
-        console.log('Dashboard');
+        console.log("Dashboard");
       },
       isSpecial: true,
-      template: itemRenderer
+      template: itemRenderer,
     },
     {
-      separator: true
+      separator: true,
     },
     {
-      label: 'Customers',
+      label: "Customers",
       items: [
         {
-          label: 'View',
+          label: "View",
           icon: PrimeIcons.USERS,
           command: () => {
-            console.log('New');
+            console.log("New");
           },
-          template: itemRenderer
+          template: itemRenderer,
         },
         {
-          label: 'Add',
+          label: "Add",
           icon: PrimeIcons.USER_PLUS,
           command: () => {
-            console.log('Open');
+            console.log("Open");
           },
-          template: itemRenderer
-        }
-      ]
+          template: itemRenderer,
+        },
+      ],
     },
     {
-      separator: true
+      separator: true,
     },
     {
-      label: 'Tags',
+      label: "Tags",
       items: [
         {
-          label: 'View',
+          label: "View",
           icon: PrimeIcons.TAGS,
           command: () => {
-            console.log('Undo');
+            console.log("Undo");
           },
-          template: itemRenderer
+          template: itemRenderer,
         },
         {
-          label: 'Edit',
+          label: "Edit",
           icon: PrimeIcons.PENCIL,
           command: () => {
-            console.log('Undo');
+            console.log("Undo");
           },
-          template: itemRenderer
-        }
-      ]
+          template: itemRenderer,
+        },
+      ],
     },
     {
-      separator: true
+      separator: true,
     },
     {
-      label: 'Emails',
+      label: "Emails",
       items: [
         {
-          label: 'View',
+          label: "View",
           icon: PrimeIcons.ENVELOPE,
           command: () => {
-            console.log('Undo');
+            console.log("Undo");
           },
-          template: itemRenderer
+          template: itemRenderer,
         },
         {
-          label: 'Edit',
+          label: "Edit",
           icon: PrimeIcons.PENCIL,
           command: () => {
-            console.log('Undo');
+            console.log("Undo");
           },
-          template: itemRenderer
-        }
-      ]
+          template: itemRenderer,
+        },
+      ],
     },
     {
-      separator: true
+      separator: true,
     },
     {
-      label: 'Reminders',
+      label: "Reminders",
       items: [
         {
-          label: 'View',
+          label: "View",
           icon: PrimeIcons.CALENDAR,
           command: () => {
-            console.log('Undo');
+            console.log("Undo");
           },
           badge: 2,
-          template: itemRenderer
+          template: itemRenderer,
         },
         {
-          label: 'Add',
+          label: "Add",
           icon: PrimeIcons.CALENDAR_PLUS,
           command: () => {
-            console.log('Undo');
+            console.log("Undo");
           },
-          template: itemRenderer
-        }
-      ]
+          template: itemRenderer,
+        },
+      ],
     },
     {
-      separator: true
+      separator: true,
     },
     {
-      label: 'Sign Out',
+      label: "Sign Out",
       icon: PrimeIcons.SIGN_OUT,
       command: () => {
         signOut();
       },
       isSpecial: true,
-      template: itemRenderer
-    }
+      template: itemRenderer,
+    },
   ];
 
-  return <Menu model={items} className="w-full md:w-15rem" style={{ borderRadius: '10px' }} />;
+  return (
+    <Menu
+      model={items}
+      className="w-full md:w-15rem"
+      style={{ borderRadius: "10px" }}
+    />
+  );
 };
 
 export default SidePane;
