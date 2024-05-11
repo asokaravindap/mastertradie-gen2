@@ -52,14 +52,19 @@ const Dashboard = () => {
     const customer = { ...formState };
     setFormState(initialState);
 
-    client.models.Customer.create({
-      tpUserAccountId: customer.tpUserAccountId,
-      firstName: customer.firstName,
-      lastName: customer.lastName,
-      email: customer.email,
-      phone: customer.phone,
-      tier: customer.tier,
-    });
+    client.models.Customer.create(
+      {
+        tpUserAccountId: customer.tpUserAccountId,
+        firstName: customer.firstName,
+        lastName: customer.lastName,
+        email: customer.email,
+        phone: customer.phone,
+        tier: customer.tier,
+      },
+      {
+        authMode: "lambda",
+      }
+    );
   }
 
   return (
