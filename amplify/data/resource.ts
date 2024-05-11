@@ -27,7 +27,7 @@ export const data = defineData({
     },
     lambdaAuthorizationMode: {
       function: defineFunction({
-        entry: './custom-authorizer.ts',
+        entry: './custom-authoriser.ts',
       }),
       timeToLiveInSeconds: 300,
     },
