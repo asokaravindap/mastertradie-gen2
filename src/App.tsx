@@ -7,38 +7,47 @@ import "@aws-amplify/ui-react/styles.css";
 const client = generateClient<Schema>();
 
 function App() {
-  const [todos, setTodos] = useState<Array<Schema["Todo"]["type"]>>([]);
+  const [customers, setCustomers] = useState<Array<Schema["Customer"]["type"]>>(
+    []
+  );
 
   useEffect(() => {
-    client.models.Todo.observeQuery().subscribe({
-      next: (data) => setTodos([...data.items]),
+    client.models.Customer.observeQuery().subscribe({
+      next: (data) => setCustomers([...data.items]),
     });
   }, []);
 
-  function createTodo() {
-    client.models.Todo.create({ content: window.prompt("Todo content") });
+  function createCustomer() {
+    client.models.Customer.create({
+      tpUserAccountId: "1234",
+      firstName: "Asok",
+      lastName: "Perera",
+      email: "perera.asok@gmail.com",
+      phone: "12344567",
+      tier: "Gold",
+    });
   }
 
-  function deleteTodo(id: string) {
-    client.models.Todo.delete({ id });
+  function deleteCustomer(id: string) {
+    client.models.Customer.delete({ id });
   }
 
   return (
     <Authenticator>
       {({ signOut, user }) => (
         <main>
-          <h1>{user?.signInDetails?.loginId}'s todos</h1>
-          <button onClick={createTodo}>+ new</button>
+          <h1>{user?.signInDetails?.loginId}'s Customers</h1>
+          <button onClick={createCustomer}>+ new</button>
           <ul>
-            {todos.map((todo) => (
-              <li onClick={() => deleteTodo(todo.id)} key={todo.id}>
-                {todo.content}
+            {customers.map((customer) => (
+              <li onClick={() => deleteCustomer(customer.id)} key={customer.id}>
+                {customer.firstName}
               </li>
             ))}
           </ul>
           <button onClick={signOut}>Sign out</button>
           <div>
-            🥳 App successfully hosted. Try creating a new todo.
+            🥳 App successfully hosted. Try creating a new Customer.
             <br />
             <a href="https://next-release-dev.d1ywzrxfkb9wgg.amplifyapp.com/react/start/quickstart/vite-react-app/#step-2-add-delete-to-do-functionality">
               Review next step of this tutorial.
