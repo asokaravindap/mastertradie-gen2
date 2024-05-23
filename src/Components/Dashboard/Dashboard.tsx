@@ -7,6 +7,8 @@ import CustomerTable from "./CustomerTable/CustomerTable";
 import SidePane from "./SidePane/SidePane";
 import NewCustomer from "./NewCustomer/NewCustomer";
 
+import Box from "@mui/material/Box";
+
 const containerStyle = {
   display: "flex",
   width: "100vw",
@@ -20,10 +22,7 @@ const sidePane = {
   paddingRight: "20px",
 };
 
-const board = {
-  // flex: 1,
-  // backgroundColor: "yellow",
-};
+const board = {};
 
 const Dashboard = () => {
   const [session, setSession] = useState<AuthSession>({});
@@ -40,24 +39,25 @@ const Dashboard = () => {
     setSession(currentSession);
     setIsLoading(false);
   }
+
   return (
-    <div style={{ backgroundColor: "white" }}>
-      <div style={containerStyle}>
-        <div style={sidePane}>
+    <Box style={{ backgroundColor: "white" }}>
+      <Box style={containerStyle}>
+        <Box style={sidePane}>
           <SidePane signOut={signOut!}></SidePane>
-        </div>
-        <div style={board}>
+        </Box>
+        <Box style={board}>
           {isLoading ? (
-            <div>Loading...</div>
+            <Box>Loading...</Box>
           ) : (
-            <div>
+            <Box>
               <NewCustomer session={session} user={user}></NewCustomer>
               <CustomerTable session={session} user={user}></CustomerTable>
-            </div>
+            </Box>
           )}
-        </div>
-      </div>
-    </div>
+        </Box>
+      </Box>
+    </Box>
   );
 };
 

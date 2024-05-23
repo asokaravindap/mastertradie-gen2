@@ -16,7 +16,7 @@ type CustomerTableProps = {
 
 const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
   const DrawerList = (
-    <Box sx={{ width: 250 }} role="presentation">
+    <Box sx={{ width: 300 }} role="presentation">
       <List>
         {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
           <ListItem key={text} disablePadding>
@@ -49,7 +49,7 @@ const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
   );
 
   return (
-    <Box sx={{ width: 250 }}>
+    <Box sx={{ width: 300 }}>
       <Drawer variant="permanent">{DrawerList}</Drawer>
     </Box>
   );
