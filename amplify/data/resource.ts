@@ -10,8 +10,7 @@ const schema = a.schema({
       phone: a.string(),
       tier: a.string()
     })
-    .authorization((allow) => [
-      allow.owner().to(['read']),
+    .authorization(allow => [
       allow.custom()
     ]),
 });
@@ -21,13 +20,10 @@ export type Schema = ClientSchema<typeof schema>;
 export const data = defineData({
   schema,
   authorizationModes: {
-    defaultAuthorizationMode: "userPool",
-    apiKeyAuthorizationMode: {
-      expiresInDays: 30,
-    },
+    defaultAuthorizationMode: "lambda",
     lambdaAuthorizationMode: {
       function: defineFunction({
-        entry: './custom-authoriser.ts',
+        entry: './authoriser/authoriser.ts',
       }),
       timeToLiveInSeconds: 300,
     },
