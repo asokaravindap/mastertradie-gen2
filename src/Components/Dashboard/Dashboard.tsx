@@ -44,9 +44,7 @@ const Dashboard = () => {
           width: "100vw",
           flex: 1,
         }}
-      >
-        Header
-      </div>
+      ></div>
       <div
         style={{
           flex: 10,
