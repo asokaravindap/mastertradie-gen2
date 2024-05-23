@@ -1,11 +1,21 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { DataTable } from "primereact/datatable";
-import { Column } from "primereact/column";
-import { ScrollPanel } from "primereact/scrollpanel";
-import { useEffect, useState } from "react";
-import { Schema } from "../../../../amplify/data/resource";
+import {
+  Table,
+  TableBody,
+  TableCell,
+  TableContainer,
+  TableHead,
+  TableRow,
+  Paper,
+} from "@mui/material";
 import { AuthSession, AuthUser } from "aws-amplify/auth";
 import { generateClient } from "aws-amplify/api";
+import { Schema } from "../../../../amplify/data/resource";
+import { useEffect, useState } from "react";
+
+interface Column {
+  field: string;
+  headerName: string;
+}
 
 type CustomerTableProps = {
   session: AuthSession;
@@ -15,6 +25,10 @@ type CustomerTableProps = {
 const client = generateClient<Schema>();
 
 const CustomerTable: React.FC<CustomerTableProps> = ({ session, user }) => {
+  const [customers, setCustomers] = useState<Array<Schema["Customer"]["type"]>>(
+    []
+  );
+
   useEffect(() => {
     const fetchCustomers = async () => {
       const { data } = await client.models.Customer.list({
@@ -24,7 +38,7 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ session, user }) => {
           },
         },
         authMode: "lambda",
-        authToken: "token:" + session.tokens?.accessToken.toString(), // amplify-category-api/issues/2128
+        authToken: "token:" + session.tokens?.accessToken.toString(),
       });
 
       setCustomers(data);
@@ -33,23 +47,42 @@ const CustomerTable: React.FC<CustomerTableProps> = ({ session, user }) => {
     fetchCustomers();
   }, [session.tokens?.accessToken, user.userId]);
 
-  const [customers, setCustomers] = useState<Array<Schema["Customer"]["type"]>>(
-    []
-  );
+  const columns: Column[] = [
+    { field: "firstName", headerName: "Firstname" },
+    { field: "lastName", headerName: "Lastname" },
+    { field: "email", headerName: "Email" },
+    { field: "phone", headerName: "Phone" },
+    { field: "tier", headerName: "Tier" },
+    { field: "tpUserAccountId", headerName: "TPUserAccountId" },
+  ];
 
   return (
-    customers && (
-      <ScrollPanel style={{ width: "100%", height: "calc(100vh / 2)" }}>
-        <DataTable value={customers}>
-          <Column field="firstName" header="Firstname"></Column>
-          <Column field="lastName" header="Lastname"></Column>
-          <Column field="email" header="Email"></Column>
-          <Column field="phone" header="Phone"></Column>
-          <Column field="tier" header="Tier"></Column>
-          <Column field="tpUserAccountId" header="TPUserAccountId"></Column>
-        </DataTable>
-      </ScrollPanel>
-    )
+    <Paper sx={{ width: "100%", overflow: "hidden" }}>
+      <TableContainer sx={{ maxHeight: 300 }}>
+        <Table stickyHeader aria-label="sticky table">
+          <TableHead>
+            <TableRow>
+              {columns.map((column) => (
+                <TableCell key={column.field} sx={{ fontWeight: "bold" }}>
+                  {column.headerName}
+                </TableCell>
+              ))}
+            </TableRow>
+          </TableHead>
+          <TableBody>
+            {customers.map((row, rowIndex) => (
+              <TableRow key={rowIndex}>
+                {columns.map((column) => (
+                  <TableCell key={column.field}>
+                    {row[column.field as keyof Schema["Customer"]["type"]]}
+                  </TableCell>
+                ))}
+              </TableRow>
+            ))}
+          </TableBody>
+        </Table>
+      </TableContainer>
+    </Paper>
   );
 };
 

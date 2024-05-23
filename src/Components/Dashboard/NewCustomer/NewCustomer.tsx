@@ -1,10 +1,6 @@
-import "primereact/resources/themes/saga-orange/theme.css";
-import "primereact/resources/primereact.min.css";
-import "primeicons/primeicons.css";
-import "primeflex/primeflex.css";
+import TextField from "@mui/material/TextField";
+import Button from "@mui/material/Button";
 
-import { Button } from "primereact/button";
-import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { generateClient } from "aws-amplify/api";
 
@@ -55,42 +51,44 @@ const NewCustomer: React.FC<NewCustomerProps> = ({ session, user }) => {
         overflowY: "auto",
       }}
     >
-      <InputText
+      <TextField
         onChange={(event) =>
           setFormState({ ...formState, firstName: event.target.value })
         }
         value={formState.firstName as string}
         placeholder="firstName"
       />
-      <InputText
+      <TextField
         onChange={(event) =>
           setFormState({ ...formState, lastName: event.target.value })
         }
         value={formState.lastName as string}
         placeholder="lastName"
       />
-      <InputText
+      <TextField
         onChange={(event) =>
           setFormState({ ...formState, email: event.target.value })
         }
         value={formState.email as string}
         placeholder="email"
       />
-      <InputText
+      <TextField
         onChange={(event) =>
           setFormState({ ...formState, phone: event.target.value })
         }
         value={formState.phone as string}
         placeholder="phone"
       />
-      <InputText
+      <TextField
         onChange={(event) =>
           setFormState({ ...formState, tier: event.target.value })
         }
         value={formState.tier as string}
         placeholder="tier"
       />
-      <Button onClick={createCustomer}>Create Customer</Button>
+      <Button variant="contained" onClick={createCustomer}>
+        Create Customer
+      </Button>
     </div>
   );
 };

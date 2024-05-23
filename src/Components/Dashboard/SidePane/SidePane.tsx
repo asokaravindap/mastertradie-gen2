@@ -1,165 +1,57 @@
-/* eslint-disable @typescript-eslint/no-explicit-any */
-import { Menu } from "primereact/menu";
-import { PrimeIcons } from "primereact/api";
-import { Badge } from "primereact/badge";
+import * as React from "react";
+import Box from "@mui/material/Box";
+import Drawer from "@mui/material/Drawer";
+import List from "@mui/material/List";
+import Divider from "@mui/material/Divider";
+import ListItem from "@mui/material/ListItem";
+import ListItemButton from "@mui/material/ListItemButton";
+import ListItemIcon from "@mui/material/ListItemIcon";
+import ListItemText from "@mui/material/ListItemText";
+import InboxIcon from "@mui/icons-material/MoveToInbox";
+import MailIcon from "@mui/icons-material/Mail";
 
 type CustomerTableProps = {
   signOut: () => void;
 };
 
 const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
-  const itemRenderer = (item: any) => (
-    <div
-      className="p-menuitem-content"
-      style={{
-        display: "flex",
-        justifyContent: item.isSpecial ? "center" : "left",
-      }}
-    >
-      <a
-        className="flex align-items-center p-menuitem-link"
-        onClick={item.command}
-        style={{ color: "var(--text-color)" }}
-      >
-        <span className={item.icon} />
-        <span
-          className="mx-2"
-          style={{ fontWeight: item.isSpecial ? "bold" : "normal" }}
-        >
-          {item.label}
-        </span>
-        {item.badge && <Badge className="ml-auto" value={item.badge} />}
-      </a>
-    </div>
+  const DrawerList = (
+    <Box sx={{ width: 250 }} role="presentation">
+      <List>
+        {["Inbox", "Starred", "Send email", "Drafts"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <Divider />
+      <List>
+        {["All mail", "Trash", "Spam"].map((text, index) => (
+          <ListItem key={text} disablePadding>
+            <ListItemButton>
+              <ListItemIcon>
+                {index % 2 === 0 ? <InboxIcon /> : <MailIcon />}
+              </ListItemIcon>
+              <ListItemText primary={text} />
+            </ListItemButton>
+          </ListItem>
+        ))}
+      </List>
+      <ListItemButton onClick={signOut}>
+        <ListItemText primary={"SignOut"} />
+      </ListItemButton>
+    </Box>
   );
 
-  const items = [
-    {
-      label: "Dashboard",
-      icon: PrimeIcons.TH_LARGE,
-      command: () => {
-        console.log("Dashboard");
-      },
-      isSpecial: true,
-      template: itemRenderer,
-    },
-    {
-      separator: true,
-    },
-    {
-      label: "Customers",
-      items: [
-        {
-          label: "View",
-          icon: PrimeIcons.USERS,
-          command: () => {
-            console.log("New");
-          },
-          template: itemRenderer,
-        },
-        {
-          label: "Add",
-          icon: PrimeIcons.USER_PLUS,
-          command: () => {
-            console.log("Open");
-          },
-          template: itemRenderer,
-        },
-      ],
-    },
-    {
-      separator: true,
-    },
-    {
-      label: "Tags",
-      items: [
-        {
-          label: "View",
-          icon: PrimeIcons.TAGS,
-          command: () => {
-            console.log("Undo");
-          },
-          template: itemRenderer,
-        },
-        {
-          label: "Edit",
-          icon: PrimeIcons.PENCIL,
-          command: () => {
-            console.log("Undo");
-          },
-          template: itemRenderer,
-        },
-      ],
-    },
-    {
-      separator: true,
-    },
-    {
-      label: "Emails",
-      items: [
-        {
-          label: "View",
-          icon: PrimeIcons.ENVELOPE,
-          command: () => {
-            console.log("Undo");
-          },
-          template: itemRenderer,
-        },
-        {
-          label: "Edit",
-          icon: PrimeIcons.PENCIL,
-          command: () => {
-            console.log("Undo");
-          },
-          template: itemRenderer,
-        },
-      ],
-    },
-    {
-      separator: true,
-    },
-    {
-      label: "Reminders",
-      items: [
-        {
-          label: "View",
-          icon: PrimeIcons.CALENDAR,
-          command: () => {
-            console.log("Undo");
-          },
-          badge: 2,
-          template: itemRenderer,
-        },
-        {
-          label: "Add",
-          icon: PrimeIcons.CALENDAR_PLUS,
-          command: () => {
-            console.log("Undo");
-          },
-          template: itemRenderer,
-        },
-      ],
-    },
-    {
-      separator: true,
-    },
-    {
-      label: "Sign Out",
-      icon: PrimeIcons.SIGN_OUT,
-      command: () => {
-        signOut();
-      },
-      isSpecial: true,
-      template: itemRenderer,
-    },
-  ];
-
   return (
-    <Menu
-      model={items}
-      className="w-full md:w-15rem"
-      style={{ borderRadius: "10px" }}
-    />
+    <Box sx={{ width: 250 }}>
+      <Drawer variant="permanent">{DrawerList}</Drawer>
+    </Box>
   );
 };
 
