@@ -1,15 +1,62 @@
+/* eslint-disable react-refresh/only-export-components */
 import "primereact/resources/themes/saga-orange/theme.css";
 import "primereact/resources/primereact.min.css";
 import "primeicons/primeicons.css";
 import "primeflex/primeflex.css";
 
 import { useEffect, useState } from "react";
-import CustomerTable from "./CustomerTable/CustomerTable";
 import SidePane from "./SidePane/SidePane";
-
 import { useAuthenticator } from "@aws-amplify/ui-react";
-import { AuthSession, fetchAuthSession } from "aws-amplify/auth";
-import NewCustomer from "./NewCustomer/NewCustomer";
+import { AuthSession, AuthUser, fetchAuthSession } from "aws-amplify/auth";
+import styled from "@emotion/styled";
+import { ProgressSpinner } from "primereact/progressspinner";
+import { Outlet, useOutletContext } from "react-router-dom";
+
+// ----- Styles Starts ----- //
+
+const DashboardContainerDiv = styled.div`
+  display: flex;
+  flex-direction: column;
+  height: 100vh;
+  background-color: var(--surface-300);
+`;
+
+const DashboardHeaderDiv = styled.div`
+  background-color: var(--primary-color);
+  border-radius: 0 0 30px 0;
+  top: 0;
+  width: 100vw;
+  flex: 1;
+`;
+
+const DashboardBodyDiv = styled.div`
+  flex: 10;
+  display: flex;
+  flex-direction: row;
+  width: 100%;
+  height: 100%;
+`;
+
+const DashboardSidePanelDiv = styled.div`
+  flex: 1;
+  padding: 1rem 1rem 1rem 1rem;
+  border-radius: 0 30px 30px 0;
+  background-color: var(--surface-100);
+`;
+
+const DashboardPanelDiv = styled.div`
+  flex: 7;
+  padding: 2rem 2rem 2rem 2rem;
+  overflow-y: auto;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+`;
+
+// ----- Styles Ends ----- //
+
+type SessionType = { session: AuthSession };
+type UserType = { user: AuthUser };
 
 const Dashboard = () => {
   const [session, setSession] = useState<AuthSession>({});
@@ -28,67 +75,38 @@ const Dashboard = () => {
   }
 
   return (
-    <div
-      style={{
-        display: "flex",
-        flexDirection: "column",
-        height: "100vh",
-        backgroundColor: "var(--surface-300)",
-      }}
-    >
-      <div
-        style={{
-          backgroundColor: "var(--primary-color)",
-          borderRadius: "0 0 30px 0",
-          top: "0",
-          width: "100vw",
-          flex: 1,
-        }}
-      ></div>
-      <div
-        style={{
-          flex: 10,
-          backgroundColor: "var(--surface-300)",
-          width: "100vw",
-        }}
-      >
-        <div
-          style={{
-            display: "flex",
-            flexDirection: "row",
-            width: "100%",
-            height: "100%",
-          }}
-        >
-          <div
-            style={{
-              flex: 1,
-              padding: "1rem 1rem 1rem 1rem",
-              borderRadius: "0 30px 30px 0",
-              backgroundColor: "var(--surface-100)",
-            }}
-          >
-            <SidePane signOut={signOut!}></SidePane>
-          </div>
+    <DashboardContainerDiv>
+      <DashboardHeaderDiv>Header</DashboardHeaderDiv>
+      <DashboardBodyDiv>
+        <DashboardSidePanelDiv>
+          <SidePane signOut={signOut!}></SidePane>
+        </DashboardSidePanelDiv>
 
-          {isLoading ? (
-            <div>Loading...</div>
-          ) : (
-            <div
-              style={{
-                flex: 7,
-                padding: "2rem 2rem 2rem 2rem",
-                overflowY: "auto",
+        {isLoading ? (
+          <DashboardPanelDiv>
+            <ProgressSpinner strokeWidth="4" />
+          </DashboardPanelDiv>
+        ) : (
+          <DashboardPanelDiv>
+            <Outlet
+              context={{
+                session: session,
+                user: user,
               }}
-            >
-              <NewCustomer session={session} user={user}></NewCustomer>
-              <CustomerTable session={session} user={user}></CustomerTable>
-            </div>
-          )}
-        </div>
-      </div>
-    </div>
+            />
+          </DashboardPanelDiv>
+        )}
+      </DashboardBodyDiv>
+    </DashboardContainerDiv>
   );
 };
+
+export function useSession(): SessionType {
+  return useOutletContext<SessionType>();
+}
+
+export function useUser(): UserType {
+  return useOutletContext<UserType>();
+}
 
 export default Dashboard;

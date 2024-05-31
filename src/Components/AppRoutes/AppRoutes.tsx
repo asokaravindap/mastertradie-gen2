@@ -4,6 +4,8 @@ import Dashboard from "../Dashboard/Dashboard";
 import { Authenticator } from "@aws-amplify/ui-react";
 import { ThemeProvider as AmplifyThemeProvider } from "@aws-amplify/ui-react";
 import { appTheme } from "../../Components/AppTheme/AppTheme.tsx";
+import CustomerTable from "../Dashboard/CustomerTable/CustomerTable.tsx";
+import NewCustomer from "../Dashboard/NewCustomer/NewCustomer.tsx";
 
 const AppRoutes = () => {
   return (
@@ -19,13 +21,16 @@ const AppRoutes = () => {
         />
 
         <Route
-          path="/dashboard"
+          path="/dashboard/*"
           element={
             <Authenticator>
               <Dashboard />
             </Authenticator>
           }
-        />
+        >
+          <Route path="customerview" element={<CustomerTable />} />
+          <Route path="customeradd" element={<NewCustomer />} />
+        </Route>
       </Routes>
     </BrowserRouter>
   );
