@@ -2,12 +2,14 @@
 import { Menu } from "primereact/menu";
 import { PrimeIcons } from "primereact/api";
 import { Badge } from "primereact/badge";
+import { useNavigate } from "react-router-dom";
 
 type CustomerTableProps = {
   signOut: () => void;
 };
 
 const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
+  const navigate = useNavigate();
   const itemRenderer = (item: any) => (
     <div
       className="p-menuitem-content"
@@ -53,7 +55,7 @@ const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
           label: "View",
           icon: PrimeIcons.USERS,
           command: () => {
-            console.log("New");
+            navigate("/dashboard/customerview");
           },
           template: itemRenderer,
         },
@@ -61,7 +63,7 @@ const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
           label: "Add",
           icon: PrimeIcons.USER_PLUS,
           command: () => {
-            console.log("Open");
+            navigate("/dashboard/customeradd");
           },
           template: itemRenderer,
         },

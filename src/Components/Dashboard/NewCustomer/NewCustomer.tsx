@@ -7,14 +7,8 @@ import { Button } from "primereact/button";
 import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { generateClient } from "aws-amplify/api";
-
 import type { Schema } from "../../../../amplify/data/resource";
-import { AuthSession, AuthUser } from "aws-amplify/auth";
-
-type NewCustomerProps = {
-  session: AuthSession;
-  user: AuthUser;
-};
+import { useSession, useUser } from "../Dashboard";
 
 const initialState = {
   firstName: "",
@@ -26,7 +20,9 @@ const initialState = {
 
 const client = generateClient<Schema>();
 
-const NewCustomer: React.FC<NewCustomerProps> = ({ session, user }) => {
+const NewCustomer = () => {
+  const { session } = useSession();
+  const { user } = useUser();
   const [formState, setFormState] = useState(initialState);
 
   function createCustomer() {

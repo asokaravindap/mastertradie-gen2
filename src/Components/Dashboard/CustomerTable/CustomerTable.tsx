@@ -4,17 +4,14 @@ import { Column } from "primereact/column";
 import { ScrollPanel } from "primereact/scrollpanel";
 import { useEffect, useState } from "react";
 import { Schema } from "../../../../amplify/data/resource";
-import { AuthSession, AuthUser } from "aws-amplify/auth";
 import { generateClient } from "aws-amplify/api";
-
-type CustomerTableProps = {
-  session: AuthSession;
-  user: AuthUser;
-};
+import { useSession, useUser } from "../Dashboard";
 
 const client = generateClient<Schema>();
 
-const CustomerTable: React.FC<CustomerTableProps> = ({ session, user }) => {
+const CustomerTable = () => {
+  const { session } = useSession();
+  const { user } = useUser();
   useEffect(() => {
     const fetchCustomers = async () => {
       const { data } = await client.models.Customer.list({
