@@ -36,8 +36,8 @@ const CustomerTable = () => {
 
   return (
     customers && (
-      <ScrollPanel style={{ width: "100%", height: "calc(100vh / 2)" }}>
-        <DataTable value={customers}>
+      <ScrollPanel style={{ width: "100%" }}>
+        <DataTable value={customers} scrollable scrollHeight="500px">
           <Column field="firstName" header="Firstname"></Column>
           <Column field="lastName" header="Lastname"></Column>
           <Column field="email" header="Email"></Column>
