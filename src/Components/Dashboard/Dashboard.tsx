@@ -22,8 +22,8 @@ const DashboardContainerDiv = styled.div`
 `;
 
 const DashboardHeaderDiv = styled.div`
-  background-color: var(--primary-color);
-  border-radius: 0 0 30px 0;
+  background-color: #451e0c;
+  border-radius: 0 0 30px 30px;
   top: 0;
   width: 100vw;
   flex: 1;
@@ -41,11 +41,11 @@ const DashboardSidePanelDiv = styled.div`
   flex: 1;
   padding: 1rem 1rem 1rem 1rem;
   border-radius: 0 30px 30px 0;
-  background-color: var(--surface-100);
+  /* background-color: var(--surface-100); */
 `;
 
 const DashboardPanelDiv = styled.div`
-  flex: 7;
+  flex: 5;
   padding: 2rem 2rem 2rem 2rem;
   overflow-y: auto;
   display: flex;
@@ -76,7 +76,7 @@ const Dashboard = () => {
 
   return (
     <DashboardContainerDiv>
-      <DashboardHeaderDiv>Header</DashboardHeaderDiv>
+      <DashboardHeaderDiv></DashboardHeaderDiv>
       <DashboardBodyDiv>
         <DashboardSidePanelDiv>
           <SidePane signOut={signOut!}></SidePane>
