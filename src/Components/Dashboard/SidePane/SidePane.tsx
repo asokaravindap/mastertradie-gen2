@@ -68,7 +68,7 @@ const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
       label: "Add New Tag",
       icon: "pi pi-tag",
       command: () => {
-        console.log("add new tag");
+        navigate("/dashboard/tagadd");
       },
     },
   ];
@@ -130,6 +130,7 @@ const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
             label="Tags"
             dropdownIcon="pi pi-plus"
             model={tagsItems}
+            onClick={() => navigate("/dashboard/tagview")}
             text
             pt={{
               button: {

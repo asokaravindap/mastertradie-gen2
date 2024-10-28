@@ -21,7 +21,7 @@ const CustomerTable = () => {
           },
         },
         authMode: "lambda",
-        authToken: "token:" + session.tokens?.accessToken.toString(), // amplify-category-api/issues/2128
+        authToken: "token:" + session.tokens?.accessToken.toString(),
       });
 
       setCustomers(data);
@@ -37,7 +37,7 @@ const CustomerTable = () => {
   return (
     customers && (
       <ScrollPanel style={{ width: "100%" }}>
-        <DataTable value={customers} scrollable scrollHeight="500px">
+        <DataTable value={customers} scrollable scrollHeight="600px">
           <Column field="firstName" header="Firstname"></Column>
           <Column field="lastName" header="Lastname"></Column>
           <Column field="email" header="Email"></Column>
