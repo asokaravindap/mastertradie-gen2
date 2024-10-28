@@ -23,7 +23,8 @@ const schema = a.schema({
       tier: a.string(),
       tpUserAccountId: a.id(),
       tpUserAccount: a.belongsTo('TPUserAccount', 'tpUserAccountId'),
-      reminders: a.hasMany('Reminder', 'customerId')
+      reminders: a.hasMany('Reminder', 'customerId'),
+      customerTags: a.hasMany('CustomerTag', 'customerId')
     })
     .authorization(allow => [
       allow.custom()
@@ -35,6 +36,7 @@ const schema = a.schema({
       description: a.string(),
       tpUserAccountId: a.id(),
       tpUserAccount: a.belongsTo('TPUserAccount', 'tpUserAccountId'),
+      customerTags: a.hasMany('CustomerTag', 'tagId')
     })
     .authorization(allow => [
       allow.custom()
@@ -42,9 +44,10 @@ const schema = a.schema({
 
   CustomerTag: a
     .model({
-      tpUserAccountId: a.id(),
       customerId: a.id(),
-      tagId: a.id()
+      tagId: a.id(),
+      customer: a.belongsTo('Customer', 'customerId'),
+      tag: a.belongsTo('Tag', 'tagId')
     })
     .authorization(allow => [
       allow.custom()
