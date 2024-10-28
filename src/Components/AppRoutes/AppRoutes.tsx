@@ -6,6 +6,8 @@ import { ThemeProvider as AmplifyThemeProvider } from "@aws-amplify/ui-react";
 import { appTheme } from "../../Components/AppTheme/AppTheme.tsx";
 import CustomerTable from "../Dashboard/CustomerTable/CustomerTable.tsx";
 import NewCustomer from "../Dashboard/NewCustomer/NewCustomer.tsx";
+import NewTag from "../Dashboard/NewTag/NewTag.tsx";
+import TagBoard from "../Dashboard/TagBoard/TagBoard.tsx";
 
 const AppRoutes = () => {
   return (
@@ -30,6 +32,8 @@ const AppRoutes = () => {
         >
           <Route path="customerview" element={<CustomerTable />} />
           <Route path="customeradd" element={<NewCustomer />} />
+          <Route path="tagview" element={<TagBoard />} />
+          <Route path="tagadd" element={<NewTag />} />
         </Route>
       </Routes>
     </BrowserRouter>

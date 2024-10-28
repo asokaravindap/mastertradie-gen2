@@ -40,7 +40,7 @@ const NewCustomer = () => {
       },
       {
         authMode: "lambda",
-        authToken: "token:" + session.tokens?.accessToken.toString(), // amplify-category-api/issues/2128
+        authToken: "token:" + session.tokens?.accessToken.toString(),
       }
     );
   }

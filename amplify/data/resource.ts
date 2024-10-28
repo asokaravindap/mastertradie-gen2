@@ -1,14 +1,62 @@
 import { type ClientSchema, a, defineData, defineFunction } from "@aws-amplify/backend";
 
 const schema = a.schema({
+  TPUserAccount: a
+    .model({
+      firstName: a.string(),
+      lastName: a.string(),
+      email: a.string(),
+      subscription: a.string(),
+      customers: a.hasMany('Customer', 'tpUserAccountId'),
+      tags: a.hasMany('Tag', 'tpUserAccountId')
+    })
+    .authorization(allow => [
+      allow.custom()
+    ]),
+
   Customer: a
     .model({
-      tpUserAccountId: a.string(),
       firstName: a.string(),
       lastName: a.string(),
       email: a.string(),
       phone: a.string(),
-      tier: a.string()
+      tier: a.string(),
+      tpUserAccountId: a.id(),
+      tpUserAccount: a.belongsTo('TPUserAccount', 'tpUserAccountId'),
+      reminders: a.hasMany('Reminder', 'customerId')
+    })
+    .authorization(allow => [
+      allow.custom()
+    ]),
+
+  Tag: a
+    .model({
+      name: a.string(),
+      description: a.string(),
+      tpUserAccountId: a.id(),
+      tpUserAccount: a.belongsTo('TPUserAccount', 'tpUserAccountId'),
+    })
+    .authorization(allow => [
+      allow.custom()
+    ]),
+
+  CustomerTag: a
+    .model({
+      tpUserAccountId: a.id(),
+      customerId: a.id(),
+      tagId: a.id()
+    })
+    .authorization(allow => [
+      allow.custom()
+    ]),
+
+  Reminder: a
+    .model({
+      timestamp: a.datetime(),
+      description: a.string(),
+      sendEmail: a.boolean(),
+      customerId: a.id(),
+      customer: a.belongsTo('Customer', 'customerId'),
     })
     .authorization(allow => [
       allow.custom()
