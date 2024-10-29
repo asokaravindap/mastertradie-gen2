@@ -8,7 +8,8 @@ const schema = a.schema({
       email: a.string(),
       subscription: a.string(),
       customers: a.hasMany('Customer', 'tpUserAccountId'),
-      tags: a.hasMany('Tag', 'tpUserAccountId')
+      tags: a.hasMany('Tag', 'tpUserAccountId'),
+      emails: a.hasMany('Email', 'tpUserAccountId')
     })
     .authorization(allow => [
       allow.custom()
@@ -60,6 +61,18 @@ const schema = a.schema({
       sendEmail: a.boolean(),
       customerId: a.id(),
       customer: a.belongsTo('Customer', 'customerId'),
+    })
+    .authorization(allow => [
+      allow.custom()
+    ]),
+
+    Email: a
+    .model({
+      subject: a.string(),
+      content: a.string(),
+      attachment: a.string(),
+      tpUserAccountId: a.id(),
+      tpUserAccount: a.belongsTo('TPUserAccount', 'tpUserAccountId'),
     })
     .authorization(allow => [
       allow.custom()
