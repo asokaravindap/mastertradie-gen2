@@ -20,6 +20,10 @@ export function validateOwner(event: AppSyncAuthorizerEvent, tokenSub: string): 
         return true;
     } else if(operationName === 'createTag' && event.requestContext.variables["input"]["tpUserAccountId"] === tokenSub){
         return true;
+    } else if(operationName === 'listReminders' && event.requestContext.variables.filter["tpUserAccountId"]["eq"] === tokenSub){
+        return true;
+    } else if(operationName === 'createReminder' && event.requestContext.variables["input"]["tpUserAccountId"] === tokenSub){
+        return true;
     } else {
         console.log(operationName + " " + operationType + " is not authorised");
         return false;
