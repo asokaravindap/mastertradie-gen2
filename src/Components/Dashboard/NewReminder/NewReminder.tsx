@@ -8,7 +8,7 @@ import { InputText } from "primereact/inputtext";
 import { useState } from "react";
 import { generateClient } from "aws-amplify/api";
 import type { Schema } from "../../../../amplify/data/resource";
-import { useSession } from "../Dashboard";
+import { useSession, useUser } from "../Dashboard";
 
 const initialState = {
   timestamp: "",
@@ -21,6 +21,7 @@ const client = generateClient<Schema>();
 
 const NewReminder = () => {
   const { session } = useSession();
+  const { user } = useUser();
   const [formState, setFormState] = useState(initialState);
 
   function createReminder() {
@@ -33,6 +34,7 @@ const NewReminder = () => {
         description: reminder.description,
         sendEmail: reminder.sendEmail ? true : false, // TODO: needs a better way for this
         customerId: reminder.customerId,
+        tpUserAccountId: user.userId,
       },
       {
         authMode: "lambda",
