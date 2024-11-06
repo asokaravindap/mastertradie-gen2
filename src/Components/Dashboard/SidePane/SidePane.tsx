@@ -88,7 +88,7 @@ const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
       label: "Add New Reminder",
       icon: "pi pi-bell",
       command: () => {
-        console.log("add new reminder");
+        navigate("/dashboard/reminderadd");
       },
     },
   ];
@@ -171,6 +171,7 @@ const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
             label="Reminders"
             dropdownIcon="pi pi-plus"
             model={remindersItems}
+            onClick={() => navigate("/dashboard/remindersview")}
             text
             pt={{
               button: {
