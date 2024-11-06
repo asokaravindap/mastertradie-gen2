@@ -171,7 +171,7 @@ const SidePane: React.FC<CustomerTableProps> = ({ signOut }) => {
             label="Reminders"
             dropdownIcon="pi pi-plus"
             model={remindersItems}
-            onClick={() => navigate("/dashboard/remindersview")}
+            onClick={() => navigate("/dashboard/reminderview")}
             text
             pt={{
               button: {
