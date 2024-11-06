@@ -48,7 +48,7 @@ const schema = a.schema({
       customerId: a.id(),
       tagId: a.id(),
       customer: a.belongsTo('Customer', 'customerId'),
-      tag: a.belongsTo('Tag', 'tagId')
+      tag: a.belongsTo('Tag', 'tagId'),
     })
     .authorization(allow => [
       allow.custom()
@@ -61,6 +61,8 @@ const schema = a.schema({
       sendEmail: a.boolean(),
       customerId: a.id(),
       customer: a.belongsTo('Customer', 'customerId'),
+      tpUserAccountId: a.id(), // Explicitly adding the field to filter reminders by tpUserAccountId
+      tpUserAccount: a.belongsTo('TPUserAccount', 'tpUserAccountId')
     })
     .authorization(allow => [
       allow.custom()
