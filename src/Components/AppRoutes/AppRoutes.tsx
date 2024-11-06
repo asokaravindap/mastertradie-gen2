@@ -8,6 +8,8 @@ import CustomerTable from "../Dashboard/CustomerTable/CustomerTable.tsx";
 import NewCustomer from "../Dashboard/NewCustomer/NewCustomer.tsx";
 import NewTag from "../Dashboard/NewTag/NewTag.tsx";
 import TagBoard from "../Dashboard/TagBoard/TagBoard.tsx";
+import RemindersCalendar from "../Dashboard/RemindersCalendar/RemindersCalendar.tsx";
+import NewReminder from "../Dashboard/NewReminder/NewReminder.tsx";
 
 const AppRoutes = () => {
   return (
@@ -34,6 +36,8 @@ const AppRoutes = () => {
           <Route path="customeradd" element={<NewCustomer />} />
           <Route path="tagview" element={<TagBoard />} />
           <Route path="tagadd" element={<NewTag />} />
+          <Route path="reminderview" element={<RemindersCalendar />} />
+          <Route path="reminderadd" element={<NewReminder />} />
         </Route>
       </Routes>
     </BrowserRouter>
