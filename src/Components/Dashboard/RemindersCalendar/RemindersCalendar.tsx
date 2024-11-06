@@ -38,10 +38,10 @@ const RemindersCalendar = () => {
     reminders && (
       <ScrollPanel style={{ width: "100%" }}>
         <DataTable value={reminders} scrollable scrollHeight="600px">
-          <Column field="timestamp" header="Firstname"></Column>
-          <Column field="description" header="Lastname"></Column>
-          <Column field="sendEmail" header="Email"></Column>
-          <Column field="customerId" header="Phone"></Column>
+          <Column field="timestamp" header="Timestamp"></Column>
+          <Column field="description" header="Description"></Column>
+          <Column field="sendEmail" header="SendEmail"></Column>
+          <Column field="customerId" header="CustomerId"></Column>
         </DataTable>
       </ScrollPanel>
     )
