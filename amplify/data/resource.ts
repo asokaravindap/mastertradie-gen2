@@ -9,7 +9,8 @@ const schema = a.schema({
       subscription: a.string(),
       customers: a.hasMany('Customer', 'tpUserAccountId'),
       tags: a.hasMany('Tag', 'tpUserAccountId'),
-      emails: a.hasMany('Email', 'tpUserAccountId')
+      emails: a.hasMany('Email', 'tpUserAccountId'),
+      reminders: a.hasMany('Reminder', 'tpUserAccountId')
     })
     .authorization(allow => [
       allow.custom()
